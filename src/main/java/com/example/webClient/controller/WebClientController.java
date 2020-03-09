@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.webClient.Model.Album;
-import com.example.webClient.Model.Post;
-import com.example.webClient.service.DataPost;
+import com.example.webClient.Model.Song;
+import com.example.webClient.service.DataSong;
 import com.example.webClient.service.IDataModel;
 import com.example.webClient.service.IModel;
 import com.example.webClient.service.MyService;
-import com.example.webClient.service.PostAdapter;
 import com.example.webClient.service.ServiceClient;
+import com.example.webClient.service.SongAdapter;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -33,10 +33,10 @@ public class WebClientController {
 	@GetMapping("/album")
 	public ResponseEntity<Mono<List<Album>>> getAlbum() {
 		
-		IDataModel dataModel = new DataPost();
+		IDataModel dataModel = new DataSong();
 		Class<?> classType = dataModel.getModel();
 		Mono<?> model1 =  myService.someRestCall("p0001", classType);
-		Mono<?> model2 =  myService.someRestCall("p0001", classType);
+		Mono<?> model2 =  myService.someRestCall("p0002", classType);
 		/*Mono<Post> post2 = myService.someRestCall("p0002");
 		Mono<Post> post3 = myService.someRestCall("p0003");
 		Mono<Post> post4 = myService.someRestCall("p0004");*/
@@ -61,7 +61,7 @@ public class WebClientController {
 		return ResponseEntity.status(HttpStatus.OK).
 				body(Flux.merge(model1, model2/*, post3, post4*/).map(e ->{
 					
-					IModel modelAdapter = new PostAdapter((Post) e);   
+					IModel modelAdapter = new SongAdapter((Song) e);   
 					return new ServiceClient().getAlbum(modelAdapter);
 				} ).collect(Collectors.toList()));
 	}

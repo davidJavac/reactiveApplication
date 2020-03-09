@@ -14,7 +14,7 @@ public class MyService {
 	private final WebClient webClient;
 
     public MyService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:9999/post").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:9999/song").build();
     }
 
     public Mono<?> someRestCall(String name, Class<?> classType) {
