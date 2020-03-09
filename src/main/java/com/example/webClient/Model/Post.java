@@ -2,7 +2,9 @@ package com.example.webClient.Model;
 
 import java.io.Serializable;
 
-public class Post implements Serializable{
+import com.example.webClient.service.IPost;
+
+public class Post implements Serializable, IPost{
 
 	private Long userId;
 	private Long id;

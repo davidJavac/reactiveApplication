@@ -14,13 +14,13 @@ public class MyService {
 	private final WebClient webClient;
 
     public MyService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://jsonplaceholder.typicode.com/posts/").build();
+        this.webClient = webClientBuilder.baseUrl("http://localhost:9999/post").build();
     }
 
-    public Mono<Post> someRestCall(String name) {
+    public Mono<?> someRestCall(String name, Class<?> classType) {
     	
         return this.webClient.get().uri("/{name}", name)
-                        .retrieve().bodyToMono(Post.class);
+                        .retrieve().bodyToMono(classType);
     }
     
     public Album mapPost(Post post) {
